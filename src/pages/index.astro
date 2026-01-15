@@ -1,8 +1,44 @@
 ---
 import { HOME } from "@consts";
 import Layout from "@layouts/Layout.astro";
+
+const projects = [
+  {
+    title: "Project Alpha",
+    description: "A high-performance web app.",
+    link: "https://alpha.example.com",
+    tags: ["Astro", "Tailwind"],
+  },
+  {
+    title: "Project Beta",
+    description: "Mobile-first e-commerce site.",
+    link: "https://beta.example.com",
+    tags: ["React", "Node.js"],
+  },
+];
 ---
 
 <Layout title={HOME.TITLE} description={HOME.DESCRIPTION}>
-  <h1>McLogicmaster69</h1>
+  <ol class="space-y-6">
+    {
+      projects.map((article) => (
+        <li>
+          <a href={article.link}>
+            <article class="space-y-3">
+              <h2 class="text-2xl font-semibold">{article.title}</h2>
+              <p>{article.description}</p>
+              <img src="https://placehold.co/600x400" class="rounded-md" />
+              <div class="flex flex-wrap gap-2">
+                {article.tags.map((tag) => (
+                  <span class="rounded-sm bg-gray-200 px-2 py-1 dark:bg-gray-800">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </article>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
 </Layout>
