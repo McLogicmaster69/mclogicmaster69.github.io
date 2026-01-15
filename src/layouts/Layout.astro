@@ -1,0 +1,18 @@
+---
+import "@styles/global.css";
+import Head from "@components/Head.astro";
+import Header from "@components/Header.astro";
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="">
+  <Head title={title} description={description} />
+  <body class="bg-surface text-foreground min-h-svh px-4 py-6">
+    <Header />
+    <main class="flex">
+      <slot />
+    </main>
+  </body>
+</html>
