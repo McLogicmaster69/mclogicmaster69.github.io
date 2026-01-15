@@ -7,6 +7,10 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  image: {
+    responsiveStyles: false,
+    layout: "constrained",
+  },
   experimental: {
     fonts: [
       {
