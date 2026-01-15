@@ -3,7 +3,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://mclogicmaster69.github.io",
-  base: "/portfoliowebsite",
   output: "static",
   vite: {
     plugins: [tailwindcss()],
