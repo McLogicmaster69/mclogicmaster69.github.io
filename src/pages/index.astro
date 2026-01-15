@@ -1,42 +1,60 @@
 ---
-import { HOME } from "@consts";
+import { SITE } from "@consts";
 import Layout from "@layouts/Layout.astro";
 
-const projects = [
+export interface Project {
+  title: string;
+  description: string;
+  link: string;
+  image: string;
+  tags: string[];
+}
+
+const projects: Project[] = [
   {
     title: "Project Alpha",
     description: "A high-performance web app.",
     link: "https://alpha.example.com",
+    image: "https://picsum.photos/2048/1024",
     tags: ["Astro", "Tailwind"],
   },
   {
-    title: "Project Beta",
+    title: "Project Bravo",
     description: "Mobile-first e-commerce site.",
     link: "https://beta.example.com",
+    image: "https://picsum.photos/1024/1024",
+    tags: ["React", "Node.js"],
+  },
+  {
+    title: "Project Charlie",
+    description: "Mobile-first e-commerce site.",
+    link: "https://beta.example.com",
+    image: "https://picsum.photos/2048/512",
     tags: ["React", "Node.js"],
   },
 ];
 ---
 
-<Layout title={HOME.TITLE} description={HOME.DESCRIPTION}>
+<Layout title={SITE.TITLE} description={SITE.DESCRIPTION}>
   <ol class="space-y-6">
     {
-      projects.map((article) => (
-        <li>
-          <a href={article.link}>
-            <article class="space-y-3">
-              <h2 class="text-2xl font-semibold">{article.title}</h2>
-              <p>{article.description}</p>
-              <img src="https://placehold.co/600x400" class="rounded-md" />
-              <div class="flex flex-wrap gap-2">
-                {article.tags.map((tag) => (
-                  <span class="rounded-sm bg-gray-200 px-2 py-1 dark:bg-gray-800">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </article>
+      projects.map((p) => (
+        <li class="flex flex-col gap-3">
+          <h2 class="text-2xl font-semibold">{p.title}</h2>
+          <p class="text-gray-600 dark:text-gray-400">{p.description}</p>
+          <a href={p.link}>
+            <img
+              src={p.image}
+              class="aspect-video w-full rounded-md object-cover"
+            />
           </a>
+          <div class="flex flex-wrap gap-2">
+            {p.tags.map((tag) => (
+              <span class="rounded-sm bg-gray-200 px-2 py-1 dark:bg-gray-800">
+                {tag}
+              </span>
+            ))}
+          </div>
         </li>
       ))
     }
