@@ -1,35 +1,52 @@
 ---
 import { SITE } from "@consts";
 import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
 
 export interface Project {
   title: string;
   description: string;
-  link: string;
-  image: string;
+  link: URL;
+  image: {
+    src: ImageMetadata;
+    alt: string;
+  };
   tags: string[];
 }
+
+import alphaImg from "@assets/pjh-1-PRCgR5vig-unsplash.jpg";
+import bravoImg from "@assets/tsuyoshi-kozu-_djHci4yf6A-unsplash.jpg";
+import charlieImg from "@assets/zero-take-OfsOzOIvNFc-unsplash.jpg";
 
 const projects: Project[] = [
   {
     title: "Project Alpha",
     description: "A high-performance web app.",
-    link: "https://alpha.example.com",
-    image: "https://picsum.photos/2048/1024",
+    link: new URL("https://alpha.example.com"),
+    image: {
+      src: alphaImg,
+      alt: "Screenshot of Project Alpha dashboard",
+    },
     tags: ["Astro", "Tailwind"],
   },
   {
     title: "Project Bravo",
     description: "Mobile-first e-commerce site.",
-    link: "https://beta.example.com",
-    image: "https://picsum.photos/1024/1024",
+    link: new URL("https://beta.example.com"),
+    image: {
+      src: bravoImg,
+      alt: "Product listing page for Project Bravo",
+    },
     tags: ["React", "Node.js"],
   },
   {
     title: "Project Charlie",
     description: "Mobile-first e-commerce site.",
-    link: "https://beta.example.com",
-    image: "https://picsum.photos/2048/512",
+    link: new URL("https://charlie.example.com"),
+    image: {
+      src: charlieImg,
+      alt: "Checkout flow UI for Project Charlie",
+    },
     tags: ["React", "Node.js"],
   },
 ];
@@ -43,8 +60,9 @@ const projects: Project[] = [
           <h2 class="text-2xl font-semibold">{p.title}</h2>
           <p class="text-gray-600 dark:text-gray-400">{p.description}</p>
           <a href={p.link}>
-            <img
-              src={p.image}
+            <Image
+              src={p.image.src}
+              alt={p.image.alt}
               class="aspect-video w-full rounded-md object-cover"
             />
           </a>
