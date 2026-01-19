@@ -22,7 +22,3 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-
-#Troy's Nix development environment
-flake.nix
-flake.lock

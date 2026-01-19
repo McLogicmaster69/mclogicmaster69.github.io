@@ -1,4 +1,4 @@
-import type { Site } from "@types";
+import type { Site } from "@/types";
 
 export const SITE: Site = {
   TITLE: "McLogicmaster69",

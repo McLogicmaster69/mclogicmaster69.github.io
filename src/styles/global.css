@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @media (prefers-color-scheme: dark) {
   .astro-code,
