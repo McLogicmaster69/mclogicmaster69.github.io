@@ -2,7 +2,7 @@
 import { SITE } from "@/consts";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import Listing from "@/components/ArticleListing.astro";
+import Listing from "@/components/PostListing.astro";
 
 const posts: CollectionEntry<"posts">[] = (await getCollection("posts"))
   .filter((post) => !post.data.draft)

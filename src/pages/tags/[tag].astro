@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { slugify } from "@/utils/utils";
 import { SITE } from "@/consts";
-import Listing from "@/components/ArticleListing.astro";
+import Listing from "@/components/PostListing.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -35,11 +35,11 @@ const currentTagLabel =
 
 <Layout
   title={SITE.TITLE}
-  description={`Articles tagged with ${currentTagLabel}.`}
+  description={`Posts tagged with ${currentTagLabel}.`}
 >
   <div
     class="grid h-fit w-full grid-cols-1 gap-2 @lg:grid-cols-2 @5xl:grid-cols-3 @min-[120rem]:grid-cols-4"
   >
-    {filteredItems.map((article) => <Listing post={article} />)}
+    {filteredItems.map((post) => <Listing post={post} />)}
   </div>
 </Layout>
