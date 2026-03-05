@@ -4,22 +4,25 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
+    "check": "astro check",
     "astro": "astro",
-    "format:check": "prettier --check .",
-    "format:write": "prettier --write ."
+    "format": "prettier --write . --experimental-cli",
+    "format:check": "prettier --check . --experimental-cli",
+    "update": "npm-check-updates -u && npm install"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.9",
-    "tailwindcss": "^4.1.18",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^6.0.0-beta.19",
+    "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.6",
+    "@astrojs/check": "^0.9.7-beta.1",
     "@tailwindcss/typography": "^0.5.19",
-    "prettier": "3.8.0",
+    "npm-check-updates": "^19.6.3",
+    "prettier": "3.8.1",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2"
   }
