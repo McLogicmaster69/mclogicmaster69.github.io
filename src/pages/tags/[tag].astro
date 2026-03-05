@@ -23,9 +23,9 @@ const { tag } = Astro.params;
 
 const posts = await getCollection("posts");
 
-const filteredItems = posts.filter((item) =>
-  (item.data.tags ?? []).some((t) => slugify(t) === tag),
-);
+const filteredItems = posts
+  .filter((item) => (item.data.tags ?? []).some((t) => slugify(t) === tag))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const currentTagLabel =
   filteredItems

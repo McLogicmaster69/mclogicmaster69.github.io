@@ -13,7 +13,10 @@ const { post } = Astro.props;
 <li class="flex flex-col gap-3">
   <div class="flex items-center justify-between">
     <h2 class="text-2xl font-semibold">{post.data.title}</h2>
-    <time datetime={post.data.date.toISOString()}>
+    <time
+      datetime={post.data.date.toISOString()}
+      class="text-gray-600 dark:text-gray-400"
+    >
       {
         post.data.date.toLocaleDateString("en-GB", {
           day: "numeric",
@@ -41,7 +44,7 @@ const { post } = Astro.props;
       post.data.tags?.map((tag) => (
         <a
           href={`/tags/${slugify(tag)}`}
-          class="rounded-sm bg-gray-200 px-2 py-1 dark:bg-gray-800"
+          class="rounded border border-gray-300 bg-gray-200 px-2 py-1 text-gray-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
         >
           {tag}
         </a>

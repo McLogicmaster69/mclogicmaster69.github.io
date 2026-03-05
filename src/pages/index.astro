@@ -1,16 +1,25 @@
 ---
-import { SITE } from "@/consts";
 import Layout from "@/layouts/Layout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
 import Listing from "@/components/PostListing.astro";
+import WeekGrid from "@/components/WeekGrid.astro";
+import { SITE } from "@/consts";
+import { getCollection } from "astro:content";
+import dayjs from "dayjs";
 
-const posts: CollectionEntry<"posts">[] = (await getCollection("posts"))
-  .filter((post) => !post.data.draft)
+const posts = (await getCollection("posts"))
+  .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <Layout title={SITE.TITLE} description={SITE.DESCRIPTION}>
-  <ol class="space-y-6">
-    {posts.map((post) => <Listing post={post} />)}
+  <div class="space-y-3">
+    <p class="text-xl font-medium text-gray-700 dark:text-gray-300">
+      Posts over the last year
+    </p>
+    <WeekGrid year={dayjs().year()} />
+  </div>
+
+  <ol class="mt-8 space-y-6">
+    {posts.map((p) => <Listing post={p} />)}
   </ol>
 </Layout>

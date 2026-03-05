@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import dayjs from "dayjs";
+import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
+import isoWeek from "dayjs/plugin/isoWeek";
+import isLeapYear from "dayjs/plugin/isLeapYear";
+dayjs.extend(isoWeeksInYear);
+dayjs.extend(isoWeek);
+dayjs.extend(isLeapYear);
+
+export interface Props {
+  year?: number;
+}
+
+const year = Astro.props.year ?? dayjs().year();
+
+const posts = (await getCollection("posts")).filter(
+  (p) => !p.data.draft && dayjs(p.data.date).year() === year,
+);
+
+const weeksInYear = dayjs(`${year}-01-01`).isoWeeksInYear();
+const weeksWithPosts = new Set<number>();
+for (const p of posts) weeksWithPosts.add(dayjs(p.data.date).isoWeek());
+
+const weekCounts = new Map<number, number>();
+for (const p of posts) {
+  const wk = dayjs(p.data.date).isoWeek();
+  weekCounts.set(wk, (weekCounts.get(wk) || 0) + 1);
+}
+---
+
+<div class="grid w-fit grid-cols-12 gap-2">
+  {
+    Array.from({ length: weeksInYear }, (_, i) => {
+      const week = i + 1;
+      const count = weekCounts.get(week) || 0;
+      const has = count > 0;
+
+      return (
+        <span
+          class:list={[
+            "flex size-6 items-center justify-center rounded border text-xs",
+            has
+              ? "border-green-600 bg-green-500 text-white dark:border-green-400 dark:text-black"
+              : "border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-700",
+          ]}
+          aria-label={`Week ${week}${has ? ` – ${count} article${count === 1 ? "" : "s"}` : " (no articles)"}`}
+          title={`Week ${week}${has ? ` – ${count} article${count === 1 ? "" : "s"}` : " (no articles)"}`}
+        >
+          {has ? count : ""}
+        </span>
+      );
+    })
+  }
+</div>

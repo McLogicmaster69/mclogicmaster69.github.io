@@ -1,6 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { slugify } from "@/utils/utils";
+
+import Profile from "@/assets/45540656.jpeg";
 
 const posts = await getCollection("posts");
 
@@ -12,9 +15,10 @@ const tags = [
 ---
 
 <header
-  class="flex flex-col items-start justify-between gap-3 lg:flex-row lg:items-center"
+  class="flex flex-col items-start justify-between gap-6 border-b border-gray-200 pb-6 lg:flex-row lg:items-center dark:border-gray-800"
 >
-  <a href="/">
+  <a href="/" class="flex items-center gap-3">
+    <Image src={Profile} alt="Profile picture" class="size-8 rounded" />
     <h1 class="text-3xl font-bold sm:text-4xl">McLogicmaster69</h1>
   </a>
 
@@ -25,7 +29,7 @@ const tags = [
           <li>
             <a
               href={`/tags/${slugify(tag)}`}
-              class="rounded-sm bg-gray-200 px-2 py-1 dark:bg-gray-800"
+              class="rounded border border-gray-300 bg-gray-200 px-2 py-1 text-gray-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
             >
               {tag}
             </a>
