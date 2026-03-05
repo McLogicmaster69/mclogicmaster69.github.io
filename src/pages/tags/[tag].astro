@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { slugify } from "@/utils/utils";
+import { SITE } from "@/consts";
+import Listing from "@/components/ArticleListing.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+
+  const tags = [
+    ...new Set(
+      posts.flatMap((post) => (post.data.tags ?? []).map((t) => slugify(t))),
+    ),
+  ];
+
+  return tags.map((tag) => ({
+    params: { tag },
+  }));
+}
+
+const { tag } = Astro.params;
+
+const posts = await getCollection("posts");
+
+const filteredItems = posts.filter((item) =>
+  (item.data.tags ?? []).some((t) => slugify(t) === tag),
+);
+
+const currentTagLabel =
+  filteredItems
+    .flatMap((p) => p.data.tags ?? [])
+    .find((t) => slugify(t) === tag) || tag;
+---
+
+<Layout
+  title={SITE.TITLE}
+  description={`Articles tagged with ${currentTagLabel}.`}
+>
+  <div
+    class="grid h-fit w-full grid-cols-1 gap-2 @lg:grid-cols-2 @5xl:grid-cols-3 @min-[120rem]:grid-cols-4"
+  >
+    {filteredItems.map((article) => <Listing post={article} />)}
+  </div>
+</Layout>

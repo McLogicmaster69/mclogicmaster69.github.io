@@ -2,7 +2,7 @@
 import { SITE } from "@/consts";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import { Image } from "astro:assets";
+import Listing from "@/components/ArticleListing.astro";
 
 const posts: CollectionEntry<"posts">[] = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
@@ -11,32 +11,6 @@ const posts: CollectionEntry<"posts">[] = (await getCollection("posts"))
 
 <Layout title={SITE.TITLE} description={SITE.DESCRIPTION}>
   <ol class="space-y-6">
-    {
-      posts.map((post) => (
-        <li class="flex flex-col gap-3">
-          <h2 class="text-2xl font-semibold">{post.data.title}</h2>
-
-          <p class="text-gray-600 dark:text-gray-400">
-            {post.data.description}
-          </p>
-
-          <a href={`/${post.collection}/${post.id}`}>
-            <Image
-              src={post.data.image.url}
-              alt={post.data.image.alt}
-              class="aspect-video w-full rounded-md object-cover"
-            />
-          </a>
-
-          <div class="flex flex-wrap gap-2">
-            {post.data.tags?.map((tag) => (
-              <span class="rounded-sm bg-gray-200 px-2 py-1 dark:bg-gray-800">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </li>
-      ))
-    }
+    {posts.map((post) => <Listing post={post} />)}
   </ol>
 </Layout>
